@@ -1,0 +1,26 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python3.12 -m venv venv)",
+      "Bash(python3 -m venv venv)",
+      "Bash(source venv/bin/activate)",
+      "Bash(pip install:*)",
+      "Bash(python -c \"import fastapi, sqlalchemy, alembic, jose, passlib, anthropic; print\\(''All packages OK''\\)\")",
+      "Bash(python -c \"from src.main import app; print\\(''main.py import OK''\\)\")",
+      "Bash(python -c \":*)",
+      "Bash(timeout 8 uvicorn src.main:app --reload)",
+      "Bash(alembic init:*)",
+      "Bash(python -c \"from pydantic import EmailStr; print\\(''EmailStr OK''\\)\")",
+      "Bash(python -c \"from src.main import app; print\\(''Import OK''\\)\")",
+      "Bash(pkill -f \"uvicorn\")",
+      "Bash(fuser -k 8000/tcp)",
+      "Bash(curl:*)",
+      "Bash(pip show:*)",
+      "Bash(pip uninstall:*)",
+      "Bash(python3 -c \":*)",
+      "Bash(python3 -m json.tool)",
+      "Bash(printenv ANTHROPIC_API_KEY)",
+      "Bash(python3:*)"
+    ]
+  }
+}
