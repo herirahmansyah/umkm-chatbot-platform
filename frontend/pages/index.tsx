@@ -4,53 +4,53 @@ import Link from 'next/link';
 const Home = () => {
   return (
     <div>
-      <header className="bg-blue-800 text-white p-10 text-center">
-        <h1 className="text-4xl font-bold">Chatbot AI untuk UMKM Indonesia</h1>
-        <p className="mt-4 text-lg">Solusi cerdas untuk membantu usaha kecil dan menengah Anda dengan teknologi AI.</p>
-        <Link href="/register" className="mt-6 inline-block bg-blue-600 text-white font-semibold py-2 px-6 rounded hover:bg-blue-500 transition">Daftar Sekarang</Link>
+      <header style={{ backgroundColor: '#1e40af', color: 'white', padding: '80px', textAlign: 'center' }}>
+        <h1 style={{ fontSize: '3rem', fontWeight: 'bold' }}>Chatbot AI untuk UMKM Indonesia</h1>
+        <p style={{ marginTop: '20px', fontSize: '1.25rem' }}>Solusi cerdas untuk membantu usaha kecil dan menengah Anda dengan teknologi AI.</p>
+        <Link href="/register" style={{ marginTop: '30px', display: 'inline-block', backgroundColor: '#2563eb', color: 'white', fontWeight: '600', padding: '10px 24px', borderRadius: '8px', textDecoration: 'none' }}>Daftar Sekarang</Link>
       </header>
-      <section className="p-10">
-        <h2 className="text-3xl font-bold text-center mb-6">Fitur Unggulan</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="bg-white border rounded-lg shadow-lg p-5">
-            <h3 className="text-xl font-semibold">Mudah Dipakai</h3>
+      <section style={{ padding: '40px', backgroundColor: '#f8fafc' }}>
+        <h2 style={{ fontSize: '2rem', fontWeight: 'bold', textAlign: 'center', marginBottom: '24px' }}>Fitur Unggulan</h2>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '24px' }}>
+          <div style={{ backgroundColor: 'white', borderRadius: '8px', boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)', padding: '20px' }}>
+            <h3 style={{ fontSize: '1.5rem', fontWeight: 'semibold' }}>Mudah Dipakai</h3>
             <p>Antarmuka yang intuitif dan mudah digunakan untuk semua kalangan.</p>
           </div>
-          <div className="bg-white border rounded-lg shadow-lg p-5">
-            <h3 className="text-xl font-semibold">AI Pintar</h3>
+          <div style={{ backgroundColor: 'white', borderRadius: '8px', boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)', padding: '20px' }}>
+            <h3 style={{ fontSize: '1.5rem', fontWeight: 'semibold' }}>AI Pintar</h3>
             <p>Teknologi AI yang canggih untuk memberikan jawaban yang akurat.</p>
           </div>
-          <div className="bg-white border rounded-lg shadow-lg p-5">
-            <h3 className="text-xl font-semibold">Harga Terjangkau</h3>
+          <div style={{ backgroundColor: 'white', borderRadius: '8px', boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)', padding: '20px' }}>
+            <h3 style={{ fontSize: '1.5rem', fontWeight: 'semibold' }}>Harga Terjangkau</h3>
             <p>Paket harga yang sesuai dengan kebutuhan usaha Anda.</p>
           </div>
         </div>
       </section>
-      <section className="p-10">
-        <h2 className="text-3xl font-bold text-center mb-6">Paket Harga</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="bg-white border rounded-lg shadow-lg p-5">
-            <h3 className="text-xl font-semibold">Free</h3>
-            <p className="text-2xl font-bold">Rp0</p>
-            <ul className="mt-4">
+      <section style={{ padding: '40px' }}>
+        <h2 style={{ fontSize: '2rem', fontWeight: 'bold', textAlign: 'center', marginBottom: '24px' }}>Paket Harga</h2>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '24px' }}>
+          <div style={{ backgroundColor: 'white', border: '1px solid #d1d5db', borderRadius: '8px', boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)', padding: '20px' }}>
+            <h3 style={{ fontSize: '1.5rem', fontWeight: 'semibold' }}>Free</h3>
+            <p style={{ fontSize: '2rem', fontWeight: 'bold' }}>Rp0</p>
+            <ul style={{ marginTop: '16px' }}>
               <li>1 Chatbot</li>
               <li>Fitur Dasar</li>
               <li>Support Email</li>
             </ul>
           </div>
-          <div className="bg-white border rounded-lg shadow-lg p-5">
-            <h3 className="text-xl font-semibold">Pro</h3>
-            <p className="text-2xl font-bold">Rp99.000</p>
-            <ul className="mt-4">
+          <div style={{ backgroundColor: 'white', border: '1px solid #1e40af', borderRadius: '8px', boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)', padding: '20px', borderWidth: '2px' }}>
+            <h3 style={{ fontSize: '1.5rem', fontWeight: 'semibold' }}>Pro</h3>
+            <p style={{ fontSize: '2rem', fontWeight: 'bold' }}>Rp99.000</p>
+            <ul style={{ marginTop: '16px' }}>
               <li>5 Chatbot</li>
               <li>Fitur Lengkap</li>
               <li>Support 24/7</li>
             </ul>
           </div>
-          <div className="bg-white border rounded-lg shadow-lg p-5">
-            <h3 className="text-xl font-semibold">Business</h3>
-            <p className="text-2xl font-bold">Rp299.000</p>
-            <ul className="mt-4">
+          <div style={{ backgroundColor: 'white', border: '1px solid #6b21a8', borderRadius: '8px', boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)', padding: '20px' }}>
+            <h3 style={{ fontSize: '1.5rem', fontWeight: 'semibold' }}>Business</h3>
+            <p style={{ fontSize: '2rem', fontWeight: 'bold' }}>Rp299.000</p>
+            <ul style={{ marginTop: '16px' }}>
               <li>Unlimited Chatbot</li>
               <li>Fitur Premium</li>
               <li>Support Prioritas</li>
