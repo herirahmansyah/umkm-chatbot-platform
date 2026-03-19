@@ -1,7 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 
 const Home = () => {
+  const [selectedPlan, setSelectedPlan] = useState(null);
+
+  const handleSelectPlan = (plan) => {
+    setSelectedPlan(plan);
+  };
+
   return (
     <div>
       <header style={{ backgroundColor: '#1e40af', color: 'white', padding: '80px', textAlign: 'center' }}>
@@ -29,7 +35,17 @@ const Home = () => {
       <section style={{ padding: '40px' }}>
         <h2 style={{ fontSize: '2rem', fontWeight: 'bold', textAlign: 'center', marginBottom: '24px' }}>Paket Harga</h2>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '24px' }}>
-          <div style={{ backgroundColor: 'white', border: '1px solid #d1d5db', borderRadius: '8px', boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)', padding: '20px' }}>
+          <div 
+            onClick={() => handleSelectPlan('Free')}
+            style={{ 
+              backgroundColor: selectedPlan === 'Free' ? '#e0f7fa' : 'white', 
+              border: selectedPlan === 'Free' ? '2px solid #00bcd4' : '1px solid #d1d5db', 
+              borderRadius: '8px', 
+              boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)', 
+              padding: '20px', 
+              cursor: 'pointer' 
+            }}
+          >
             <h3 style={{ fontSize: '1.5rem', fontWeight: 'semibold' }}>Free</h3>
             <p style={{ fontSize: '2rem', fontWeight: 'bold' }}>Rp0</p>
             <p>Trial 7 Hari</p>
@@ -38,8 +54,19 @@ const Home = () => {
               <li>Layanan CS</li>
               <li>Support Email</li>
             </ul>
+            <Link href="/register" style={{ display: 'block', marginTop: '20px', backgroundColor: '#2563eb', color: 'white', padding: '10px', textAlign: 'center', borderRadius: '8px', textDecoration: 'none' }}>Pilih Paket</Link>
           </div>
-          <div style={{ backgroundColor: 'white', border: '1px solid #1e40af', borderRadius: '8px', boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)', padding: '20px', borderWidth: '2px' }}>
+          <div 
+            onClick={() => handleSelectPlan('Pro')}
+            style={{ 
+              backgroundColor: selectedPlan === 'Pro' ? '#e0f7fa' : 'white', 
+              border: selectedPlan === 'Pro' ? '2px solid #1e40af' : '1px solid #1e40af', 
+              borderRadius: '8px', 
+              boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)', 
+              padding: '20px', 
+              cursor: 'pointer' 
+            }}
+          >
             <h3 style={{ fontSize: '1.5rem', fontWeight: 'semibold' }}>Pro</h3>
             <p style={{ fontSize: '2rem', fontWeight: 'bold' }}>Rp99.000</p>
             <p>1 Bulan</p>
@@ -50,8 +77,19 @@ const Home = () => {
               <li>Agenda</li>
               <li>Support 24/7</li>
             </ul>
+            <Link href="/register" style={{ display: 'block', marginTop: '20px', backgroundColor: '#2563eb', color: 'white', padding: '10px', textAlign: 'center', borderRadius: '8px', textDecoration: 'none' }}>Pilih Paket</Link>
           </div>
-          <div style={{ backgroundColor: 'white', border: '1px solid #6b21a8', borderRadius: '8px', boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)', padding: '20px' }}>
+          <div 
+            onClick={() => handleSelectPlan('Business')}
+            style={{ 
+              backgroundColor: selectedPlan === 'Business' ? '#e0f7fa' : 'white', 
+              border: selectedPlan === 'Business' ? '2px solid #6b21a8' : '1px solid #6b21a8', 
+              borderRadius: '8px', 
+              boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)', 
+              padding: '20px', 
+              cursor: 'pointer' 
+            }}
+          >
             <h3 style={{ fontSize: '1.5rem', fontWeight: 'semibold' }}>Business</h3>
             <p style={{ fontSize: '2rem', fontWeight: 'bold' }}>Rp299.000</p>
             <p>1 Bulan</p>
@@ -66,6 +104,7 @@ const Home = () => {
               <li>Dashboard</li>
               <li>Support Prioritas</li>
             </ul>
+            <Link href="/register" style={{ display: 'block', marginTop: '20px', backgroundColor: '#2563eb', color: 'white', padding: '10px', textAlign: 'center', borderRadius: '8px', textDecoration: 'none' }}>Pilih Paket</Link>
           </div>
         </div>
       </section>
