@@ -91,7 +91,7 @@ const Home = () => {
             }}
           >
             <h3 style={{ fontSize: '1.5rem', fontWeight: 'semibold' }}>Business</h3>
-            <p style={{ fontSize: '2rem', fontWeight: 'bold' }}>Rp299.000</p>
+            <p style={{ fontSize: '2rem', fontWeight: 'bold' }}>Rp199.000</p>
             <p>1 Bulan</p>
             <ul style={{ marginTop: '16px' }}>
               <li>1 Chatbot</li>
