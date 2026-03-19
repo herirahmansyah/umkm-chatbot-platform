@@ -32,27 +32,38 @@ const Home = () => {
           <div style={{ backgroundColor: 'white', border: '1px solid #d1d5db', borderRadius: '8px', boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)', padding: '20px' }}>
             <h3 style={{ fontSize: '1.5rem', fontWeight: 'semibold' }}>Free</h3>
             <p style={{ fontSize: '2rem', fontWeight: 'bold' }}>Rp0</p>
+            <p>Trial 7 Hari</p>
             <ul style={{ marginTop: '16px' }}>
               <li>1 Chatbot</li>
-              <li>Fitur Dasar</li>
+              <li>Layanan CS</li>
               <li>Support Email</li>
             </ul>
           </div>
           <div style={{ backgroundColor: 'white', border: '1px solid #1e40af', borderRadius: '8px', boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)', padding: '20px', borderWidth: '2px' }}>
             <h3 style={{ fontSize: '1.5rem', fontWeight: 'semibold' }}>Pro</h3>
             <p style={{ fontSize: '2rem', fontWeight: 'bold' }}>Rp99.000</p>
+            <p>1 Bulan</p>
             <ul style={{ marginTop: '16px' }}>
-              <li>5 Chatbot</li>
-              <li>Fitur Lengkap</li>
+              <li>1 Chatbot</li>
+              <li>Layanan CS</li>
+              <li>RAG</li>
+              <li>Agenda</li>
               <li>Support 24/7</li>
             </ul>
           </div>
           <div style={{ backgroundColor: 'white', border: '1px solid #6b21a8', borderRadius: '8px', boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)', padding: '20px' }}>
             <h3 style={{ fontSize: '1.5rem', fontWeight: 'semibold' }}>Business</h3>
             <p style={{ fontSize: '2rem', fontWeight: 'bold' }}>Rp299.000</p>
+            <p>1 Bulan</p>
             <ul style={{ marginTop: '16px' }}>
-              <li>Unlimited Chatbot</li>
-              <li>Fitur Premium</li>
+              <li>1 Chatbot</li>
+              <li>Layanan CS</li>
+              <li>RAG</li>
+              <li>Agenda</li>
+              <li>Invoice</li>
+              <li>Quotation</li>
+              <li>Financial</li>
+              <li>Dashboard</li>
               <li>Support Prioritas</li>
             </ul>
           </div>
