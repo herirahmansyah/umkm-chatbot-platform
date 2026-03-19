@@ -7,9 +7,7 @@ const Home = () => {
       <header className="bg-blue-600 text-white p-10 text-center">
         <h1 className="text-4xl font-bold">Chatbot AI untuk UMKM Indonesia</h1>
         <p className="mt-4 text-lg">Solusi cerdas untuk membantu usaha kecil dan menengah Anda dengan teknologi AI.</p>
-        <Link href="/register">
-          <a className="mt-6 inline-block bg-white text-blue-600 font-semibold py-2 px-4 rounded">Daftar Sekarang</a>
-        </Link>
+        <Link href="/register" className="mt-6 inline-block bg-white text-blue-600 font-semibold py-2 px-4 rounded">Daftar Sekarang</Link>
       </header>
       <section className="p-10">
         <h2 className="text-3xl font-bold text-center mb-6">Fitur Unggulan</h2>
