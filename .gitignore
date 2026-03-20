@@ -37,3 +37,4 @@ logs/
 .vscode/
 .idea/
 *.swp
+.aider*
