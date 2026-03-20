@@ -235,14 +235,22 @@ const Dashboard = () => {
         {activePage === 'plans' && (
           <>
             <h2>Paket Langganan</h2>
-            <ul>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '20px' }}>
               {plans.map((plan) => (
-                <li key={plan.id}>
-                  {plan.name} - {plan.price}
-                  <button onClick={() => handlePlanSelect(plan.id)}>Pilih Paket</button>
-                </li>
+                <div key={plan.id} style={{ backgroundColor: 'white', borderRadius: '12px', padding: '20px', boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)' }}>
+                  <h3 style={{ fontWeight: 'bold', fontSize: '20px' }}>{plan.nama}</h3>
+                  <p>{plan.harga > 0 ? `Rp ${plan.harga.toLocaleString()}` : 'Gratis'}</p>
+                  {plan.fitur && plan.fitur.length > 0 && (
+                    <ul>
+                      {plan.fitur.map((feature, index) => (
+                        <li key={index}>{feature}</li>
+                      ))}
+                    </ul>
+                  )}
+                  <button onClick={() => handlePlanSelect(plan.id)} style={{ backgroundColor: '#2563eb', color: 'white', width: '100%', padding: '10px', borderRadius: '8px', border: 'none' }}>Pilih Paket</button>
+                </div>
               ))}
-            </ul>
+            </div>
           </>
         )}
       </div>
