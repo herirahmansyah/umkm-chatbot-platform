@@ -144,8 +144,8 @@ async def whatsapp_webhook(bot_id: str, payload: dict):
     db = get_db()
     bot = _get_bot_or_404(bot_id, db)
 
-    chat_id = payload['payload']['chat_id']
-    message = payload['payload']['message']
+    chat_id = payload['chat_id']
+    message = payload['message']
     session_id = chat_id
 
     messages = [{"role": "system", "content": bot.system_prompt},
@@ -184,3 +184,15 @@ async def whatsapp_webhook(bot_id: str, payload: dict):
 async def get_webhook_url(bot_id: str):
     webhook_url = f"http://localhost:8000/webhook/whatsapp/{bot_id}"
     return {"webhook_url": webhook_url}
+
+
+@router.get("/webhook/whatsapp/{bot_id}/info")
+async def get_bot_info(bot_id: str):
+    db = get_db()
+    bot = _get_bot_or_404(bot_id, "", db)
+    return {
+        "bot_id": bot.id,
+        "webhook_url": f"/webhook/whatsapp/{bot_id}",
+        "bot_name": bot.nama,
+        "is_active": bot.is_active,
+    }
