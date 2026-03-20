@@ -237,9 +237,10 @@ const Dashboard = () => {
             <h2>Paket Langganan</h2>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '20px' }}>
               {plans.map((plan) => (
-                <div key={plan.id} style={{ backgroundColor: 'white', borderRadius: '12px', padding: '20px', boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)' }}>
+                <div key={plan.id} style={{ backgroundColor: plan.nama === 'Business' ? '#eff6ff' : 'white', border: plan.nama === 'Business' ? '1px solid #2563eb' : 'none', borderRadius: '12px', padding: '20px', boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)' }}>
                   <h3 style={{ fontWeight: 'bold', fontSize: '20px' }}>{plan.nama}</h3>
-                  <p>{plan.harga > 0 ? `Rp ${plan.harga.toLocaleString()}` : 'Gratis'}</p>
+                  <p>{plan.harga > 0 ? `Rp${plan.nama === 'Business' ? 199000 : plan.harga.toLocaleString()}` : 'Gratis'}</p>
+                  <p>{plan.nama === 'Free' ? 'Trial 7 Hari' : plan.nama === 'Pro' ? '1 Bulan' : plan.nama === 'Business' ? '1 Bulan' : ''}</p>
                   {plan.fitur && plan.fitur.length > 0 && (
                     <ul>
                       {plan.fitur.map((feature, index) => (
