@@ -137,3 +137,50 @@ def chat(
     db.refresh(ai_msg)
 
     return ChatResponse(reply=reply_text, session_id=payload.session_id, message=ai_msg)
+
+
+@router.post("/webhook/whatsapp/{bot_id}")
+async def whatsapp_webhook(bot_id: str, payload: dict):
+    db = get_db()
+    bot = _get_bot_or_404(bot_id, db)
+
+    chat_id = payload['payload']['chat_id']
+    message = payload['payload']['message']
+    session_id = chat_id
+
+    messages = [{"role": "system", "content": bot.system_prompt},
+                {"role": "user", "content": message}]
+
+    client = OpenAI(api_key=settings.OPENAI_API_KEY)
+    response = client.chat.completions.create(
+        model=MODEL,
+        messages=messages,
+        max_tokens=1024,
+    )
+    reply_text = response.choices[0].message.content
+
+    user_msg = ChatMessage(
+        bot_id=bot_id,
+        session_id=session_id,
+        role="user",
+        content=message,
+    )
+    db.add(user_msg)
+
+    ai_msg = ChatMessage(
+        bot_id=bot_id,
+        session_id=session_id,
+        role="assistant",
+        content=reply_text,
+    )
+    db.add(ai_msg)
+    db.commit()
+    db.refresh(ai_msg)
+
+    return {"status": "ok", "reply": reply_text}
+
+
+@router.get("/webhook/whatsapp/{bot_id}/url")
+async def get_webhook_url(bot_id: str):
+    webhook_url = f"http://localhost:8000/webhook/whatsapp/{bot_id}"
+    return {"webhook_url": webhook_url}
