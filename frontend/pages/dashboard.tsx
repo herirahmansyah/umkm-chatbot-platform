@@ -81,15 +81,19 @@ const Dashboard = () => {
     };
 
     const loadSubscription = async () => {
-      try {
-        const response = await axios.get('http://localhost:8000/subscriptions/me', {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        setActiveSubscription(response.data);
-      } catch (err) {
-        console.error('Failed to load subscription', err);
+      if (typeof window !== 'undefined') {
+        const token = localStorage.getItem('token');
+        try {
+          const response = await axios.get('http://localhost:8000/subscriptions/me', {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
+          console.log('Subscription data:', response.data);
+          setActiveSubscription(response.data);
+        } catch (err) {
+          console.error('Failed to load subscription', err);
+        }
       }
     };
 
