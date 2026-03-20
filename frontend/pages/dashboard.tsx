@@ -18,7 +18,14 @@ const Dashboard = () => {
     botName: '',
     systemPrompt: '',
   });
-  const token = localStorage.getItem('token');
+  const [token, setToken] = useState(null);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const storedToken = localStorage.getItem('token');
+      setToken(storedToken);
+    }
+  }, []);
 
   useEffect(() => {
     if (!token) {
