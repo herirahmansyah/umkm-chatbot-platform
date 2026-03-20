@@ -19,15 +19,21 @@ const Dashboard = () => {
     systemPrompt: '',
   });
   const [token, setToken] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const storedToken = localStorage.getItem('token');
       setToken(storedToken);
+      setIsLoading(false);
     }
   }, []);
 
   useEffect(() => {
+    if (isLoading) {
+      return;
+    }
+
     if (!token) {
       window.location.href = '/register';
       return;
@@ -76,7 +82,7 @@ const Dashboard = () => {
     fetchUser();
     fetchBots();
     fetchPlans();
-  }, [token]);
+  }, [token, isLoading]);
 
   const handleFormChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -134,6 +140,10 @@ const Dashboard = () => {
       console.error('Failed to create bot', err);
     }
   };
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div style={{ display: 'flex' }}>
