@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "8000:8000"
+    env_file: ./backend/.env
+    restart: always
+    volumes:
+      - db_data:/app/umkm.db  # Ensure SQLite data persists
+
+volumes:
+  db_data:
