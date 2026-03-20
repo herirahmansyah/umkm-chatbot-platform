@@ -143,8 +143,8 @@ def chat(
 
 
 @router.post("/webhook/whatsapp/{bot_id}")
-async def whatsapp_webhook(bot_id: str, payload: dict, db: Session = Depends(get_db)):
-    db = get_db()
+async def whatsapp_webhook(bot_id: str, payload: dict):
+    db = next(get_db())
     bot = _get_bot_or_404(bot_id, "", db)
 
     chat_id = payload['chat_id']
@@ -191,7 +191,7 @@ async def get_webhook_url(bot_id: str):
 
 @router.get("/webhook/whatsapp/{bot_id}/info")
 async def get_bot_info(bot_id: str):
-    db = get_db()
+    db = next(get_db())
     bot = _get_bot_or_404(bot_id, "", db)
     return {
         "bot_id": bot.id,
