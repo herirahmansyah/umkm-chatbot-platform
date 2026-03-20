@@ -221,8 +221,10 @@ const Dashboard = () => {
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: '20px', marginTop: '20px' }}>
                 {bots.map((bot) => (
                   <div key={bot.id} style={{ backgroundColor: 'white', borderRadius: '12px', padding: '20px', boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)', width: 'calc(33% - 20px)' }}>
-                    <h4>{bot.name}</h4>
-                    <p>Status: {bot.active ? 'Aktif' : 'Nonaktif'}</p>
+                    <h4 style={{ fontWeight: 'bold' }}>{bot.nama}</h4>
+                    <p style={{ color: bot.is_active ? 'green' : 'red' }}>
+                      {bot.is_active ? 'Aktif' : 'Nonaktif'}
+                    </p>
                     <button style={{ backgroundColor: '#2563eb', color: 'white', padding: '5px 10px', borderRadius: '8px' }}>Edit</button>
                   </div>
                 ))}
