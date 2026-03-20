@@ -6,6 +6,7 @@ const Dashboard = () => {
   const [activePage, setActivePage] = useState('home');
   const [bots, setBots] = useState([]);
   const [plans, setPlans] = useState([]);
+  const [activeSubscription, setActiveSubscription] = useState(null);
   const [formData, setFormData] = useState({
     businessName: '',
     description: '',
@@ -79,9 +80,23 @@ const Dashboard = () => {
       }
     };
 
+    const loadSubscription = async () => {
+      try {
+        const response = await axios.get('http://localhost:8000/subscriptions/me', {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        setActiveSubscription(response.data);
+      } catch (err) {
+        console.error('Failed to load subscription', err);
+      }
+    };
+
     fetchUser();
     fetchBots();
     fetchPlans();
+    loadSubscription();
   }, [token, isLoading]);
 
   const handleFormChange = (e) => {
@@ -106,14 +121,15 @@ const Dashboard = () => {
     }
   };
 
-  const handlePlanSelect = async (planId) => {
+  const handlePlanSelect = async (planId, planName) => {
     try {
-      await axios.post('http://localhost:8000/subscriptions', { planId }, {
+      await axios.post('http://localhost:8000/subscriptions', { plan_id: planId }, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-      alert('Subscription successful');
+      alert(`Berhasil berlangganan paket ${planName}!`);
+      loadSubscription(); // Refresh the subscription status
     } catch (err) {
       console.error('Failed to subscribe', err);
     }
@@ -243,8 +259,9 @@ const Dashboard = () => {
               {plans.map((plan) => {
                 const duration = plan.fitur[0]; // Get the first feature as duration
                 const features = plan.fitur.slice(1); // Remove the first feature from the list
+                const isActive = activeSubscription && activeSubscription.plan_id === plan.id; // Check if this plan is active
                 return (
-                  <div key={plan.id} style={{ backgroundColor: plan.nama === 'Business' ? '#eff6ff' : 'white', border: plan.nama === 'Business' ? '1px solid #2563eb' : 'none', borderRadius: '12px', padding: '20px', boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)' }}>
+                  <div key={plan.id} style={{ backgroundColor: isActive ? '#d1fae5' : (plan.nama === 'Business' ? '#eff6ff' : 'white'), border: plan.nama === 'Business' ? '1px solid #2563eb' : 'none', borderRadius: '12px', padding: '20px', boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)' }}>
                     <h3 style={{ fontWeight: 'bold', fontSize: '20px' }}>{plan.nama}</h3>
                     <p>{formatPrice(plan.harga)}</p>
                     <p>{duration}</p>
@@ -255,7 +272,11 @@ const Dashboard = () => {
                         ))}
                       </ul>
                     )}
-                    <button onClick={() => handlePlanSelect(plan.id)} style={{ backgroundColor: '#2563eb', color: 'white', width: '100%', padding: '10px', borderRadius: '8px', border: 'none' }}>Pilih Paket</button>
+                    {isActive ? (
+                      <button disabled style={{ backgroundColor: 'green', color: 'white', width: '100%', padding: '10px', borderRadius: '8px', border: 'none' }}>Paket Aktif</button>
+                    ) : (
+                      <button onClick={() => handlePlanSelect(plan.id, plan.nama)} style={{ backgroundColor: '#2563eb', color: 'white', width: '100%', padding: '10px', borderRadius: '8px', border: 'none' }}>Pilih Paket</button>
+                    )}
                   </div>
                 );
               })}
