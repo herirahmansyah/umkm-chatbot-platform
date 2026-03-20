@@ -99,35 +99,32 @@ const Dashboard = () => {
 
   return (
     <div style={{ display: 'flex' }}>
-      <div style={{ width: '200px', padding: '10px', backgroundColor: '#f0f0f0' }}>
-        <h2>{user ? user.businessName : 'Business Name'}</h2>
-        <ul>
-          <li onClick={() => setActivePage('home')} style={{ cursor: 'pointer' }}>Beranda</li>
-          <li onClick={() => setActivePage('profile')} style={{ cursor: 'pointer' }}>Profil Usaha</li>
-          <li onClick={() => setActivePage('chatbots')} style={{ cursor: 'pointer' }}>Chatbot Saya</li>
-          <li onClick={() => setActivePage('plans')} style={{ cursor: 'pointer' }}>Paket Langganan</li>
-          <li onClick={() => { localStorage.removeItem('token'); window.location.href = '/register'; }} style={{ cursor: 'pointer' }}>Keluar</li>
+      <div style={{ width: '240px', padding: '24px', backgroundColor: '#1e293b', color: 'white' }}>
+        <h2 style={{ fontWeight: 'bold' }}>{user ? user.businessName : 'Nama Usaha'}</h2>
+        <ul style={{ listStyleType: 'none', padding: 0 }}>
+          <li onClick={() => setActivePage('home')} style={{ padding: '10px', borderRadius: '8px', cursor: 'pointer', transition: 'background 0.3s', ':hover': { backgroundColor: '#334155' } }}>Beranda</li>
+          <li onClick={() => setActivePage('profile')} style={{ padding: '10px', borderRadius: '8px', cursor: 'pointer', transition: 'background 0.3s', ':hover': { backgroundColor: '#334155' } }}>Profil Usaha</li>
+          <li onClick={() => setActivePage('chatbots')} style={{ padding: '10px', borderRadius: '8px', cursor: 'pointer', transition: 'background 0.3s', ':hover': { backgroundColor: '#334155' } }}>Chatbot Saya</li>
+          <li onClick={() => setActivePage('plans')} style={{ padding: '10px', borderRadius: '8px', cursor: 'pointer', transition: 'background 0.3s', ':hover': { backgroundColor: '#334155' } }}>Paket Langganan</li>
+          <li onClick={() => { localStorage.removeItem('token'); window.location.href = '/register'; }} style={{ padding: '10px', borderRadius: '8px', cursor: 'pointer', transition: 'background 0.3s', ':hover': { backgroundColor: '#334155' } }}>Keluar</li>
         </ul>
       </div>
-      <div style={{ flex: 1, padding: '10px' }}>
+      <div style={{ flex: 1, padding: '32px', backgroundColor: '#f8fafc' }}>
+        <h1>{activePage === 'home' ? 'Beranda' : activePage === 'profile' ? 'Profil Usaha' : activePage === 'chatbots' ? 'Chatbot Saya' : 'Paket Langganan'}</h1>
         {activePage === 'home' && (
           <>
-            <h1>Welcome to your Dashboard!</h1>
-            <div style={{ border: '1px solid #ccc', padding: '10px', marginBottom: '10px' }}>
-              <h2>Welcome, {user ? user.businessName : 'Business Name'}</h2>
-            </div>
             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-              <div style={{ border: '1px solid #ccc', padding: '10px', width: '30%' }}>
+              <div style={{ backgroundColor: 'white', borderRadius: '12px', padding: '24px', boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)', width: '30%' }}>
                 <h3>Total Bots</h3>
-                <p>{bots.length}</p>
+                <p style={{ fontSize: '24px', fontWeight: 'bold' }}>{bots.length}</p>
               </div>
-              <div style={{ border: '1px solid #ccc', padding: '10px', width: '30%' }}>
+              <div style={{ backgroundColor: 'white', borderRadius: '12px', padding: '24px', boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)', width: '30%' }}>
                 <h3>Status Langganan</h3>
-                <p>{user ? user.subscriptionStatus : 'N/A'}</p>
+                <p style={{ fontSize: '24px', fontWeight: 'bold' }}>{user ? user.subscriptionStatus : 'N/A'}</p>
               </div>
-              <div style={{ border: '1px solid #ccc', padding: '10px', width: '30%' }}>
+              <div style={{ backgroundColor: 'white', borderRadius: '12px', padding: '24px', boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)', width: '30%' }}>
                 <h3>Paket Aktif</h3>
-                <p>{user ? user.activePlan : 'N/A'}</p>
+                <p style={{ fontSize: '24px', fontWeight: 'bold' }}>{user ? user.activePlan : 'N/A'}</p>
               </div>
             </div>
           </>
