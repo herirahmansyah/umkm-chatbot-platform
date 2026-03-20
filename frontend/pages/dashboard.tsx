@@ -13,6 +13,11 @@ const Dashboard = () => {
     phone: '',
     address: '',
   });
+  const [botFormVisible, setBotFormVisible] = useState(false);
+  const [newBotData, setNewBotData] = useState({
+    botName: '',
+    systemPrompt: '',
+  });
   const token = localStorage.getItem('token');
 
   useEffect(() => {
@@ -70,6 +75,10 @@ const Dashboard = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  const handleBotFormChange = (e) => {
+    setNewBotData({ ...newBotData, [e.target.name]: e.target.value });
+  };
+
   const handleProfileSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -94,6 +103,28 @@ const Dashboard = () => {
       alert('Subscription successful');
     } catch (err) {
       console.error('Failed to subscribe', err);
+    }
+  };
+
+  const handleCreateBot = async () => {
+    try {
+      await axios.post('http://localhost:8000/chatbot', newBotData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      alert('Bot created successfully');
+      setBotFormVisible(false);
+      setNewBotData({ botName: '', systemPrompt: '' });
+      // Refresh the bot list
+      const response = await axios.get('http://localhost:8000/chatbot', {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setBots(response.data);
+    } catch (err) {
+      console.error('Failed to create bot', err);
     }
   };
 
@@ -148,12 +179,31 @@ const Dashboard = () => {
         {activePage === 'chatbots' && (
           <>
             <h2>Chatbot Saya</h2>
-            <button onClick={() => {/* Logic to open create bot form */}}>Buat Bot Baru</button>
-            <ul>
-              {bots.map((bot) => (
-                <li key={bot.id}>{bot.name}</li>
-              ))}
-            </ul>
+            <button onClick={() => setBotFormVisible(true)} style={{ backgroundColor: '#2563eb', color: 'white', padding: '10px 20px', borderRadius: '8px' }}>Buat Bot Baru</button>
+            {botFormVisible && (
+              <div style={{ marginTop: '20px', maxWidth: '500px' }}>
+                <h3>Buat Bot</h3>
+                <label>Nama Bot</label>
+                <input type="text" name="botName" placeholder="Nama Bot" onChange={handleBotFormChange} style={{ width: '100%', padding: '10px', border: '1px solid #d1d5db', borderRadius: '8px', marginBottom: '16px' }} />
+                <label>System Prompt</label>
+                <textarea name="systemPrompt" placeholder="System Prompt" onChange={handleBotFormChange} style={{ width: '100%', height: '120px', padding: '10px', border: '1px solid #d1d5db', borderRadius: '8px', marginBottom: '16px' }} />
+                <button onClick={handleCreateBot} style={{ backgroundColor: '#2563eb', color: 'white', padding: '10px 20px', borderRadius: '8px', marginRight: '10px' }}>Simpan Bot</button>
+                <button onClick={() => setBotFormVisible(false)} style={{ backgroundColor: '#d1d5db', color: 'black', padding: '10px 20px', borderRadius: '8px' }}>Batal</button>
+              </div>
+            )}
+            {bots.length === 0 ? (
+              <p style={{ textAlign: 'center', marginTop: '20px' }}>Belum ada chatbot. Buat bot pertama Anda!</p>
+            ) : (
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '20px', marginTop: '20px' }}>
+                {bots.map((bot) => (
+                  <div key={bot.id} style={{ backgroundColor: 'white', borderRadius: '12px', padding: '20px', boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)', width: 'calc(33% - 20px)' }}>
+                    <h4>{bot.name}</h4>
+                    <p>Status: {bot.active ? 'Aktif' : 'Nonaktif'}</p>
+                    <button style={{ backgroundColor: '#2563eb', color: 'white', padding: '5px 10px', borderRadius: '8px' }}>Edit</button>
+                  </div>
+                ))}
+              </div>
+            )}
           </>
         )}
         {activePage === 'plans' && (
