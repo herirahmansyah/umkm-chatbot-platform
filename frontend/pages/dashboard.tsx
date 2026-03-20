@@ -120,22 +120,26 @@ const Dashboard = () => {
   };
 
   const handleCreateBot = async () => {
+    const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null;
+    console.log('Token:', token);
     try {
-      await axios.post('http://localhost:8000/chatbot', newBotData, {
+      console.log('New Bot Data:', newBotData);
+      const response = await axios.post('http://localhost:8000/chatbot', newBotData, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
+      console.log('Response:', response);
       alert('Bot created successfully');
       setBotFormVisible(false);
       setNewBotData({ botName: '', systemPrompt: '' });
       // Refresh the bot list
-      const response = await axios.get('http://localhost:8000/chatbot', {
+      const botResponse = await axios.get('http://localhost:8000/chatbot', {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-      setBots(response.data);
+      setBots(botResponse.data);
     } catch (err) {
       console.error('Failed to create bot', err);
     }
