@@ -30,7 +30,10 @@ def _get_profile_or_404(user_id: str, db: Session) -> UMKMProfile:
 
 
 def _get_bot_or_404(bot_id: str, umkm_id: str, db: Session) -> ChatBot:
-    bot = db.query(ChatBot).filter(ChatBot.id == bot_id, ChatBot.umkm_id == umkm_id).first()
+    if umkm_id:
+        bot = db.query(ChatBot).filter(ChatBot.id == bot_id, ChatBot.umkm_id == umkm_id).first()
+    else:
+        bot = db.query(ChatBot).filter(ChatBot.id == bot_id).first()
     if not bot:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Bot tidak ditemukan")
     return bot
@@ -140,9 +143,9 @@ def chat(
 
 
 @router.post("/webhook/whatsapp/{bot_id}")
-async def whatsapp_webhook(bot_id: str, payload: dict):
+async def whatsapp_webhook(bot_id: str, payload: dict, db: Session = Depends(get_db)):
     db = get_db()
-    bot = _get_bot_or_404(bot_id, db)
+    bot = _get_bot_or_404(bot_id, "", db)
 
     chat_id = payload['chat_id']
     message = payload['message']
