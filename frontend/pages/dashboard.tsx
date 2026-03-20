@@ -130,14 +130,19 @@ const Dashboard = () => {
           </>
         )}
         {activePage === 'profile' && (
-          <form onSubmit={handleProfileSubmit}>
+          <form onSubmit={handleProfileSubmit} style={{ display: 'flex', flexDirection: 'column', maxWidth: '500px' }}>
             <h2>Edit Profil Usaha</h2>
-            <input type="text" name="businessName" placeholder="Nama Usaha" onChange={handleFormChange} required />
-            <textarea name="description" placeholder="Deskripsi" onChange={handleFormChange} required />
-            <input type="text" name="category" placeholder="Kategori" onChange={handleFormChange} required />
-            <input type="text" name="phone" placeholder="No HP" onChange={handleFormChange} required />
-            <input type="text" name="address" placeholder="Alamat" onChange={handleFormChange} required />
-            <button type="submit">Update Profil</button>
+            <label>Nama Usaha</label>
+            <input type="text" name="businessName" placeholder="Nama Usaha" onChange={handleFormChange} style={{ width: '100%', padding: '10px', border: '1px solid #d1d5db', borderRadius: '8px', marginBottom: '16px' }} />
+            <label>Deskripsi</label>
+            <textarea name="description" placeholder="Deskripsi" onChange={handleFormChange} style={{ width: '100%', padding: '10px', border: '1px solid #d1d5db', borderRadius: '8px', marginBottom: '16px' }} />
+            <label>Kategori</label>
+            <input type="text" name="category" placeholder="Kategori" onChange={handleFormChange} style={{ width: '100%', padding: '10px', border: '1px solid #d1d5db', borderRadius: '8px', marginBottom: '16px' }} />
+            <label>No HP</label>
+            <input type="text" name="phone" placeholder="No HP" onChange={handleFormChange} style={{ width: '100%', padding: '10px', border: '1px solid #d1d5db', borderRadius: '8px', marginBottom: '16px' }} />
+            <label>Alamat</label>
+            <input type="text" name="address" placeholder="Alamat" onChange={handleFormChange} style={{ width: '100%', padding: '10px', border: '1px solid #d1d5db', borderRadius: '8px', marginBottom: '16px' }} />
+            <button type="submit" style={{ backgroundColor: '#2563eb', color: 'white', width: '100%', maxWidth: '500px', padding: '10px', borderRadius: '8px', border: 'none' }}>Update Profil</button>
           </form>
         )}
         {activePage === 'chatbots' && (
