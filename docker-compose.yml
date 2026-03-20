@@ -3,12 +3,16 @@ version: '3.8'
 services:
   backend:
     build: ./backend
+    container_name: umkm_backend
     ports:
       - "8000:8000"
     env_file: ./backend/.env
     restart: always
     volumes:
-      - db_data:/app/umkm.db  # Ensure SQLite data persists
+      - ./backend/data:/app/data
+    environment:
+      - DATABASE_URL=sqlite:///./data/umkm_platform.db
 
-volumes:
-  db_data:
+networks:
+  default:
+    name: umkm-network
