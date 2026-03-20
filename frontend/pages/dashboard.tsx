@@ -148,6 +148,10 @@ const Dashboard = () => {
     }
   };
 
+  const formatPrice = (price) => {
+    return price > 0 ? `Rp. ${price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}` : 'Gratis';
+  };
+
   if (isLoading) {
     return <div>Loading...</div>;
   }
@@ -236,21 +240,25 @@ const Dashboard = () => {
           <>
             <h2>Paket Langganan</h2>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '20px' }}>
-              {plans.map((plan) => (
-                <div key={plan.id} style={{ backgroundColor: plan.nama === 'Business' ? '#eff6ff' : 'white', border: plan.nama === 'Business' ? '1px solid #2563eb' : 'none', borderRadius: '12px', padding: '20px', boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)' }}>
-                  <h3 style={{ fontWeight: 'bold', fontSize: '20px' }}>{plan.nama}</h3>
-                  <p>{plan.harga > 0 ? `Rp${plan.nama === 'Business' ? 199000 : plan.harga.toLocaleString()}` : 'Gratis'}</p>
-                  <p>{plan.nama === 'Free' ? 'Trial 7 Hari' : plan.nama === 'Pro' ? '1 Bulan' : plan.nama === 'Business' ? '1 Bulan' : ''}</p>
-                  {plan.fitur && plan.fitur.length > 0 && (
-                    <ul>
-                      {plan.fitur.map((feature, index) => (
-                        <li key={index}>{feature}</li>
-                      ))}
-                    </ul>
-                  )}
-                  <button onClick={() => handlePlanSelect(plan.id)} style={{ backgroundColor: '#2563eb', color: 'white', width: '100%', padding: '10px', borderRadius: '8px', border: 'none' }}>Pilih Paket</button>
-                </div>
-              ))}
+              {plans.map((plan) => {
+                const duration = plan.fitur[0]; // Get the first feature as duration
+                const features = plan.fitur.slice(1); // Remove the first feature from the list
+                return (
+                  <div key={plan.id} style={{ backgroundColor: plan.nama === 'Business' ? '#eff6ff' : 'white', border: plan.nama === 'Business' ? '1px solid #2563eb' : 'none', borderRadius: '12px', padding: '20px', boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)' }}>
+                    <h3 style={{ fontWeight: 'bold', fontSize: '20px' }}>{plan.nama}</h3>
+                    <p>{formatPrice(plan.harga)}</p>
+                    <p>{duration}</p>
+                    {features.length > 0 && (
+                      <ul>
+                        {features.map((feature, index) => (
+                          <li key={index}>{feature}</li>
+                        ))}
+                      </ul>
+                    )}
+                    <button onClick={() => handlePlanSelect(plan.id)} style={{ backgroundColor: '#2563eb', color: 'white', width: '100%', padding: '10px', borderRadius: '8px', border: 'none' }}>Pilih Paket</button>
+                  </div>
+                );
+              })}
             </div>
           </>
         )}
