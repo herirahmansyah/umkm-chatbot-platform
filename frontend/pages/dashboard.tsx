@@ -122,8 +122,21 @@ const Dashboard = () => {
   };
 
   const handlePlanSelect = async (planId, planName) => {
+    const startDate = new Date().toISOString().split('T')[0];
+    let endDate;
+
+    if (planName === 'Free') {
+      endDate = new Date();
+      endDate.setDate(endDate.getDate() + 7);
+    } else {
+      endDate = new Date();
+      endDate.setDate(endDate.getDate() + 30);
+    }
+
+    const endDateString = endDate.toISOString().split('T')[0];
+
     try {
-      await axios.post('http://localhost:8000/subscriptions', { plan_id: planId }, {
+      await axios.post('http://localhost:8000/subscriptions', { plan_id: planId, mulai: startDate, selesai: endDateString }, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
