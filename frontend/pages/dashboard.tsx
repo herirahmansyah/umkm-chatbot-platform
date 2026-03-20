@@ -185,6 +185,16 @@ const Dashboard = () => {
     return price > 0 ? `Rp. ${price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}` : 'Gratis';
   };
 
+  const copyToClipboard = (url, index) => {
+    navigator.clipboard.writeText(url).then(() => {
+      const copyButton = document.getElementById(`copy-button-${index}`);
+      copyButton.innerText = 'Copied!';
+      setTimeout(() => {
+        copyButton.innerText = 'Copy';
+      }, 2000);
+    });
+  };
+
   if (isLoading) {
     return <div>Loading...</div>;
   }
@@ -256,12 +266,22 @@ const Dashboard = () => {
               <p style={{ textAlign: 'center', marginTop: '20px' }}>Belum ada chatbot. Buat bot pertama Anda!</p>
             ) : (
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: '20px', marginTop: '20px' }}>
-                {bots.map((bot) => (
+                {bots.map((bot, index) => (
                   <div key={bot.id} style={{ backgroundColor: 'white', borderRadius: '12px', padding: '20px', boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)', width: 'calc(33% - 20px)' }}>
                     <h4 style={{ fontWeight: 'bold' }}>{bot.nama}</h4>
                     <p style={{ color: bot.is_active ? 'green' : 'red' }}>
                       {bot.is_active ? 'Aktif' : 'Nonaktif'}
                     </p>
+                    <label>Webhook URL:</label>
+                    <div style={{ display: 'flex', alignItems: 'center' }}>
+                      <input
+                        type="text"
+                        readOnly
+                        value={`http://localhost:8000/webhook/whatsapp/${bot.id}`}
+                        style={{ flex: 1, padding: '10px', border: '1px solid #d1d5db', borderRadius: '8px', marginRight: '10px' }}
+                      />
+                      <button id={`copy-button-${index}`} onClick={() => copyToClipboard(`http://localhost:8000/webhook/whatsapp/${bot.id}`, index)} style={{ backgroundColor: '#2563eb', color: 'white', padding: '10px', borderRadius: '8px' }}>Copy</button>
+                    </div>
                     <button style={{ backgroundColor: '#2563eb', color: 'white', padding: '5px 10px', borderRadius: '8px' }}>Edit</button>
                   </div>
                 ))}
