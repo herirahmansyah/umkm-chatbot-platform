@@ -124,7 +124,10 @@ const Dashboard = () => {
     console.log('Token:', token);
     try {
       console.log('New Bot Data:', newBotData);
-      const response = await axios.post('http://localhost:8000/chatbot', newBotData, {
+      const response = await axios.post('http://localhost:8000/chatbot', {
+        nama: newBotData.botName,
+        system_prompt: newBotData.systemPrompt,
+      }, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
