@@ -42,6 +42,7 @@ const Admin = () => {
       const response = await axios.get('http://localhost:8000/auth/admin/stats', {
         headers: { Authorization: `Bearer ${token}` },
       });
+      console.log('Stats Response:', response.data);
       setStats(response.data);
     } catch (err) {
       setError('Failed to fetch stats.');
@@ -54,6 +55,7 @@ const Admin = () => {
       const response = await axios.get('http://localhost:8000/auth/admin/users', {
         headers: { Authorization: `Bearer ${token}` },
       });
+      console.log('Users Response:', response.data);
       setUsers(response.data);
     } catch (err) {
       setError('Failed to fetch users.');
@@ -120,7 +122,9 @@ const Admin = () => {
                 <td>{index + 1}</td>
                 <td>{user.email}</td>
                 <td>{user.role}</td>
-                <td>{user.isActive ? 'Aktif' : 'Nonaktif'}</td>
+                <td style={{ color: user.isActive ? 'green' : 'red' }}>
+                  {user.isActive ? 'Aktif' : 'Nonaktif'}
+                </td>
                 <td>
                   <button onClick={() => toggleUserStatus(user.id)} style={{ backgroundColor: '#2563eb', color: 'white', border: 'none', padding: '5px 10px', borderRadius: '5px' }}>
                     {user.isActive ? 'Nonaktifkan' : 'Aktifkan'}
