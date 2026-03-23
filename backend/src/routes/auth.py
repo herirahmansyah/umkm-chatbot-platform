@@ -1,5 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
+from sqlalchemy import func
 
 from src.database import get_db
 from src.deps import get_current_user
@@ -9,6 +10,11 @@ from src.schemas.auth import LoginRequest, RegisterRequest, TokenResponse, UserR
 from src.utils.security import create_access_token, hash_password, verify_password
 
 router = APIRouter(prefix="/auth", tags=["Authentication"])
+
+
+def admin_required(current_user: User = Depends(get_current_user)):
+    if current_user.role != "admin":
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Not enough permissions")
 
 
 @router.post("/register", response_model=TokenResponse, status_code=status.HTTP_201_CREATED)
@@ -64,3 +70,28 @@ def login(payload: LoginRequest, db: Session = Depends(get_db)):
 @router.get("/me", response_model=UserResponse)
 def me(current_user: User = Depends(get_current_user)):
     return current_user
+
+
+@router.get("/admin/users", response_model=list[UserResponse])
+def get_users(db: Session = Depends(get_db), current_user: User = Depends(admin_required)):
+    users = db.query(User).filter(User.role == "umkm").all()
+    return [{"id": user.id, "email": user.email, "role": user.role, "is_active": user.is_active, "created_at": user.created_at} for user in users]
+
+
+@router.get("/admin/stats")
+def get_stats(db: Session = Depends(get_db), current_user: User = Depends(admin_required)):
+    total_umkm = db.query(func.count(User.id)).filter(User.role == "umkm").scalar()
+    total_active = db.query(func.count(User.id)).filter(User.role == "umkm", User.is_active == True).scalar()
+    total_inactive = db.query(func.count(User.id)).filter(User.role == "umkm", User.is_active == False).scalar()
+    return {"total_umkm": total_umkm, "total_active": total_active, "total_inactive": total_inactive}
+
+
+@router.put("/admin/users/{user_id}/toggle")
+def toggle_user_active(user_id: str, db: Session = Depends(get_db), current_user: User = Depends(admin_required)):
+    user = db.query(User).filter(User.id == user_id).first()
+    if not user:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="User not found")
+    
+    user.is_active = not user.is_active
+    db.commit()
+    return {"success": True, "is_active": user.is_active}
