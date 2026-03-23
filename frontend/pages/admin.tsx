@@ -93,15 +93,15 @@ const Admin = () => {
         <div style={{ display: 'flex', justifyContent: 'space-around', marginBottom: '20px' }}>
           <div style={{ padding: '20px', backgroundColor: 'white', borderRadius: '8px', boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)' }}>
             <h3>Total UMKM</h3>
-            <p>{stats.totalUMKM}</p>
+            <p style={{ fontSize: '24px', fontWeight: 'bold' }}>{stats.totalUMKM}</p>
           </div>
           <div style={{ padding: '20px', backgroundColor: 'white', borderRadius: '8px', boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)' }}>
             <h3>Total Aktif</h3>
-            <p>{stats.totalActive}</p>
+            <p style={{ fontSize: '24px', fontWeight: 'bold' }}>{stats.totalActive}</p>
           </div>
           <div style={{ padding: '20px', backgroundColor: 'white', borderRadius: '8px', boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)' }}>
             <h3>Total Nonaktif</h3>
-            <p>{stats.totalInactive}</p>
+            <p style={{ fontSize: '24px', fontWeight: 'bold' }}>{stats.totalInactive}</p>
           </div>
         </div>
         <h2>Kelola UMKM</h2>
@@ -122,12 +122,12 @@ const Admin = () => {
                 <td>{index + 1}</td>
                 <td>{user.email}</td>
                 <td>{user.role}</td>
-                <td style={{ color: user.isActive ? 'green' : 'red' }}>
-                  {user.isActive ? 'Aktif' : 'Nonaktif'}
+                <td style={{ color: user.is_active ? 'green' : 'red' }}>
+                  {user.is_active ? 'Aktif' : 'Nonaktif'}
                 </td>
                 <td>
                   <button onClick={() => toggleUserStatus(user.id)} style={{ backgroundColor: '#2563eb', color: 'white', border: 'none', padding: '5px 10px', borderRadius: '5px' }}>
-                    {user.isActive ? 'Nonaktifkan' : 'Aktifkan'}
+                    {user.is_active ? 'Nonaktifkan' : 'Aktifkan'}
                   </button>
                 </td>
               </tr>
