@@ -6,34 +6,38 @@ const Admin = () => {
   const [stats, setStats] = useState({ totalUMKM: 0, totalActive: 0, totalInactive: 0 });
   const [users, setUsers] = useState([]);
   const [error, setError] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
-  const token = localStorage.getItem('token');
 
   useEffect(() => {
+    const token = localStorage.getItem('token');
+
     if (!token) {
       router.push('/login');
-    } else {
-      // Check user role
-      const fetchUserRole = async () => {
-        try {
-          const response = await axios.get('http://localhost:8000/auth/me', {
-            headers: { Authorization: `Bearer ${token}` },
-          });
-          if (response.data.role !== 'admin') {
-            router.push('/dashboard');
-          }
-        } catch (err) {
-          setError('Failed to fetch user role.');
-        }
-      };
-
-      fetchUserRole();
-      fetchStats();
-      fetchUsers();
+      return;
     }
-  }, [token, router]);
+
+    const fetchUserRole = async () => {
+      try {
+        const response = await axios.get('http://localhost:8000/auth/me', {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        if (response.data.role !== 'admin') {
+          router.push('/dashboard');
+        }
+      } catch (err) {
+        setError('Failed to fetch user role.');
+      }
+    };
+
+    fetchUserRole();
+    fetchStats();
+    fetchUsers();
+    setIsLoading(false);
+  }, [router]);
 
   const fetchStats = async () => {
+    const token = localStorage.getItem('token');
     try {
       const response = await axios.get('http://localhost:8000/auth/admin/stats', {
         headers: { Authorization: `Bearer ${token}` },
@@ -45,6 +49,7 @@ const Admin = () => {
   };
 
   const fetchUsers = async () => {
+    const token = localStorage.getItem('token');
     try {
       const response = await axios.get('http://localhost:8000/auth/admin/users', {
         headers: { Authorization: `Bearer ${token}` },
@@ -56,6 +61,7 @@ const Admin = () => {
   };
 
   const toggleUserStatus = async (id: string) => {
+    const token = localStorage.getItem('token');
     try {
       await axios.put(`http://localhost:8000/auth/admin/users/${id}/toggle`, {}, {
         headers: { Authorization: `Bearer ${token}` },
@@ -65,6 +71,10 @@ const Admin = () => {
       setError('Failed to toggle user status.');
     }
   };
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div style={{ display: 'flex', height: '100vh', backgroundColor: '#f3f4f6' }}>
