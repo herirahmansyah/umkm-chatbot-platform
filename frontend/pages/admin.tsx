@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useRouter } from 'next/router';
 
 const Admin = () => {
-  const [stats, setStats] = useState({ totalUMKM: 0, totalActive: 0, totalInactive: 0 });
+  const [stats, setStats] = useState({ total_umkm: 0, total_active: 0, total_inactive: 0 });
   const [users, setUsers] = useState([]);
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(true);
@@ -93,15 +93,15 @@ const Admin = () => {
         <div style={{ display: 'flex', justifyContent: 'space-around', marginBottom: '20px' }}>
           <div style={{ padding: '20px', backgroundColor: 'white', borderRadius: '8px', boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)' }}>
             <h3>Total UMKM</h3>
-            <p style={{ fontSize: '24px', fontWeight: 'bold' }}>{stats.totalUMKM}</p>
+            <p style={{ fontSize: '24px', fontWeight: 'bold' }}>{stats.total_umkm}</p>
           </div>
           <div style={{ padding: '20px', backgroundColor: 'white', borderRadius: '8px', boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)' }}>
             <h3>Total Aktif</h3>
-            <p style={{ fontSize: '24px', fontWeight: 'bold' }}>{stats.totalActive}</p>
+            <p style={{ fontSize: '24px', fontWeight: 'bold' }}>{stats.total_active}</p>
           </div>
           <div style={{ padding: '20px', backgroundColor: 'white', borderRadius: '8px', boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)' }}>
             <h3>Total Nonaktif</h3>
-            <p style={{ fontSize: '24px', fontWeight: 'bold' }}>{stats.totalInactive}</p>
+            <p style={{ fontSize: '24px', fontWeight: 'bold' }}>{stats.total_inactive}</p>
           </div>
         </div>
         <h2>Kelola UMKM</h2>
