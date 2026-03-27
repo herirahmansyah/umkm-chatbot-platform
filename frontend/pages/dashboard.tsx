@@ -80,22 +80,7 @@ const Dashboard = () => {
       }
     };
 
-    const loadSubscription = async () => {
-      if (typeof window !== 'undefined') {
-        const token = localStorage.getItem('token');
-        try {
-          const response = await axios.get('http://localhost:8000/subscriptions/me', {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          });
-          console.log('Subscription data:', response.data);
-          setActiveSubscription(response.data);
-        } catch (err) {
-          console.error('Failed to load subscription', err);
-        }
-      }
-    };
+    loadSubscription();
 
     fetchUser();
     fetchBots();
@@ -103,6 +88,22 @@ const Dashboard = () => {
     loadSubscription();
   }, [token, isLoading]);
 
+  const loadSubscription = async () => {
+    if (typeof window !== 'undefined') {
+      const token = localStorage.getItem('token');
+      try {
+        const response = await axios.get('http://localhost:8000/subscriptions/me', {
+          headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    });
+        console.log('Subscription data:', response.data);
+        setActiveSubscription(response.data);
+    } catch (err) {
+        console.error('Failed to load subscription', err);
+    }
+    }
+    };
   const handleFormChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
