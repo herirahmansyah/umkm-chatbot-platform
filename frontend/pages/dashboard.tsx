@@ -146,7 +146,7 @@ const Dashboard = () => {
         },
       });
       alert(`Berhasil berlangganan paket ${planName}!`);
-      fetchSubscription(); // Refresh the subscription status
+      await loadSubscription(); // Refresh the subscription status
     } catch (err) {
       console.error('Failed to subscribe', err);
     }
