@@ -205,11 +205,11 @@ const Dashboard = () => {
       <div style={{ width: '240px', padding: '24px', backgroundColor: '#1e293b', color: 'white' }}>
         <h2 style={{ fontWeight: 'bold' }}>{user ? user.businessName : 'Nama Usaha'}</h2>
         <ul style={{ listStyleType: 'none', padding: 0 }}>
-          <li onClick={() => setActivePage('home')} style={{ padding: '10px', borderRadius: '8px', cursor: 'pointer', transition: 'background 0.3s', ':hover': { backgroundColor: '#334155' } }}>Beranda</li>
-          <li onClick={() => setActivePage('profile')} style={{ padding: '10px', borderRadius: '8px', cursor: 'pointer', transition: 'background 0.3s', ':hover': { backgroundColor: '#334155' } }}>Profil Usaha</li>
-          <li onClick={() => setActivePage('chatbots')} style={{ padding: '10px', borderRadius: '8px', cursor: 'pointer', transition: 'background 0.3s', ':hover': { backgroundColor: '#334155' } }}>Chatbot Saya</li>
-          <li onClick={() => setActivePage('plans')} style={{ padding: '10px', borderRadius: '8px', cursor: 'pointer', transition: 'background 0.3s', ':hover': { backgroundColor: '#334155' } }}>Paket Langganan</li>
-          <li onClick={() => { localStorage.removeItem('token'); window.location.href = '/register'; }} style={{ padding: '10px', borderRadius: '8px', cursor: 'pointer', transition: 'background 0.3s', ':hover': { backgroundColor: '#334155' } }}>Keluar</li>
+          <li onClick={() => setActivePage('home')} style={{ padding: '10px', borderRadius: '8px', cursor: 'pointer', transition: 'background 0.3s' }}>Beranda</li>
+          <li onClick={() => setActivePage('profile')} style={{ padding: '10px', borderRadius: '8px', cursor: 'pointer', transition: 'background 0.3s' }}>Profil Usaha</li>
+          <li onClick={() => setActivePage('chatbots')} style={{ padding: '10px', borderRadius: '8px', cursor: 'pointer', transition: 'background 0.3s' }}>Chatbot Saya</li>
+          <li onClick={() => setActivePage('plans')} style={{ padding: '10px', borderRadius: '8px', cursor: 'pointer', transition: 'background 0.3s' }}>Paket Langganan</li>
+          <li onClick={() => { localStorage.removeItem('token'); window.location.href = '/register'; }} style={{ padding: '10px', borderRadius: '8px', cursor: 'pointer', transition: 'background 0.3s' }}>Keluar</li>
         </ul>
       </div>
       <div style={{ flex: 1, padding: '32px', backgroundColor: '#f8fafc' }}>
